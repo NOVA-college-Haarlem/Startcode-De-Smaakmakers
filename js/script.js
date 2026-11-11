@@ -1,34 +1,44 @@
 // Klik op "Schrijf je in" bij een workshop: kies die workshop in het formulier
 
-document.querySelectorAll(".card a")[0].addEventListener("click", function () {
-    document.querySelector("#workshop").value = "1";
-    document.querySelector("#gekozen").textContent = "Je hebt gekozen: " + "Verse pasta maken" + " op " + "zaterdag 5 december" + ".";
+//DRY: DONT REPEAT YOURSELF
+function formatPrijs(prijs) {
+    return `€ ${prijs.toFixed(2).replace(".", ",")}`;
+}
+
+function kiesWorkshop(workshopId, workshopTitle, workshopDate, workshopPrijs){
+    document.querySelector("#workshop").value = workshopId;
+    document.querySelector("#gekozen").textContent = `Jouw keuze: ${workshopTitle} op ${workshopDate}. De prijs is ${formatPrijs(workshopPrijs)}`;
+}
+
+const knoppen = document.querySelectorAll(".card a");
+
+knoppen[0].addEventListener("click", function () {
+    kiesWorkshop(1, "Verse pasta maken", "zaterdag 5 december", 45);
 });
 
-document.querySelectorAll(".card a")[1].addEventListener("click", function () {
-    document.querySelector("#workshop").value = "2";
-    document.querySelector("#gekozen").textContent = "Je hebt gekozen: " + "Sushi voor beginners" + " op " + "zaterdag 12 december" + ".";
+knoppen[1].addEventListener("click", function () {
+    kiesWorkshop(2, "Sushi voor beginners", "zaterdag 12 december", 55);
 });
 
-document.querySelectorAll(".card a")[2].addEventListener("click", function () {
-    document.querySelector("#workshop").value = "3";
-    document.querySelector("#gekozen").textContent = "Je hebt gekozen: " + "Brood bakken" + " op " + "zaterdag 19 december" + ".";
+knoppen[2].addEventListener("click", function () {
+    kiesWorkshop(3, "Brood bakken", "zaterdag 19 december", 39.5);
 });
 
-document.querySelectorAll(".card a")[3].addEventListener("click", function () {
-    document.querySelector("#workshop").value = "4";
-    document.querySelector("#gekozen").textContent = "Je hebt gekozen: " + "Vegetarisch kerstdiner" + " op " + "zondag 20 december" + ".";
+knoppen[3].addEventListener("click", function () {
+    kiesWorkshop(4, "Vegetarisch kerstdiner", "zondag 20 december", 65);
+});
+knoppen[4].addEventListener("click", function () {
+    kiesWorkshop(5, "Thaise curry's", "zaterdag 9 januari", 49);
+});
+knoppen[5].addEventListener("click", function () {
+    kiesWorkshop(6, "Taarten en gebak", "zaterdag 16 januari", 42.5);
 });
 
-document.querySelectorAll(".card a")[4].addEventListener("click", function () {
-    document.querySelector("#workshop").value = "5";
-    document.querySelector("#gekozen").textContent = "Je hebt gekozen: " + "Thaise curry's" + " op " + "zaterdag 9 januari" + ".";
-});
+function berekenTotaal(prijs, aantal){
+    let totaal = prijs * aantal;
+    return formatPrijs(totaal);
+}
 
-document.querySelectorAll(".card a")[5].addEventListener("click", function () {
-    document.querySelector("#workshop").value = "6";
-    document.querySelector("#gekozen").textContent = "Je hebt gekozen: " + "Taarten en gebak" + " op " + "zaterdag 16 januari" + ".";
-});
 
 // Zet de prijs in het verborgen veld zodra er een workshop gekozen is
 
