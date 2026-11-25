@@ -28,63 +28,19 @@
             <a href="#workshops" class="knop">Bekijk workshops</a>
         </section>
 
+        <section class="container">
+            <div id="uitgelicht"></div>
+            <h2>Binnenkort</h2>
+            <ul id="binnenkort">
+
+            </ul>
+        </section>
+
         <section id="workshops" class="container">
             <h2>Onze workshops</h2>
 
             <div class="cards">
-                <article class="card">
-                    <h3>Verse pasta maken</h3>
-                    <p class="categorie">Italiaans</p>
-                    <p>Zaterdag 5 december</p>
-                    <p class="prijs">€ 45</p>
-                    <p>Nog 8 plekken</p>
-                    <a href="#inschrijven" class="knop">Schrijf je in</a>
-                </article>
 
-                <article class="card">
-                    <h3>Sushi voor beginners</h3>
-                    <p class="categorie">Aziatisch</p>
-                    <p>Zaterdag 12 december</p>
-                    <p class="prijs">€55,-</p>
-                    <p class="vol">Vol!</p>
-                    <a href="#inschrijven" class="knop">Schrijf je in</a>
-                </article>
-
-                <article class="card">
-                    <h3>Brood bakken</h3>
-                    <p class="categorie">Bakken</p>
-                    <p>Zaterdag 19 december</p>
-                    <p class="prijs">€ 39,50</p>
-                    <p>Nog 4 plekken</p>
-                    <a href="#inschrijven" class="knop">Schrijf je in</a>
-                </article>
-
-                <article class="card">
-                    <h3>Vegetarisch kerstdiner</h3>
-                    <p class="categorie">Vegetarisch</p>
-                    <p>Zondag 20 december</p>
-                    <p class="prijs">65 euro</p>
-                    <p>Nog 10 plekken</p>
-                    <a href="#inschrijven" class="knop">Schrijf je in</a>
-                </article>
-
-                <article class="card">
-                    <h3>Thaise curry's</h3>
-                    <p class="categorie">Aziatisch</p>
-                    <p>Zaterdag 9 januari</p>
-                    <p class="prijs">€ 49,00</p>
-                    <p>Nog 6 plekken</p>
-                    <a href="#inschrijven" class="knop">Schrijf je in</a>
-                </article>
-
-                <article class="card">
-                    <h3>Taarten en gebak</h3>
-                    <p class="categorie">Bakken</p>
-                    <p>Zaterdag 16 januari</p>
-                    <p class="prijs">€ 42,5</p>
-                    <p>Nog 2 plekken</p>
-                    <a href="#inschrijven" class="knop">Schrijf je in</a>
-                </article>
             </div>
         </section>
 
@@ -95,7 +51,7 @@
             <form action="verwerk.php" method="post">
 
                 <label for="naam">Naam</label>
-                <input type="text" id="naam" name="naam" placeholder="Naam">
+                <input type="text" id="naam" name="naam" placeholder="Naam" value="David">
 
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="E-mailadres">
@@ -106,16 +62,11 @@
                 <label for="workshop">Workshop</label>
                 <select name="workshop" id="workshop">
                     <option value="">-- Kies een workshop --</option>
-                    <option value="1">Verse pasta maken</option>
-                    <option value="2">Sushi voor beginners</option>
-                    <option value="3">Brood bakken</option>
-                    <option value="4">Vegetarisch kerstdiner</option>
-                    <option value="5">Thaise curry's</option>
-                    <option value="6">Taarten en gebak</option>
+
                 </select>
 
                 <label for="aantal">Aantal personen</label>
-                <input type="number" name="aantal" id="aantal" value="1">
+                <input type="number" name="aantal" id="aantal" value="1" min="-1">
 
                 <label for="opmerkingen">Opmerkingen</label>
                 <textarea name="opmerking" id="opmerkingen" placeholder="Allergieën of opmerkingen"></textarea>

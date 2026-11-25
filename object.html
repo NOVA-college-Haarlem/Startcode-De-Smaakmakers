@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+        const workshops = [
+            { id: 1, titel: "Verse pasta maken", prijs: 45, plekken: 3, categorie: "koken", datum: "20-12-2026" },
+            { id: 2, titel: "Sushi voor beginners", prijs: 55, plekken: 3, categorie: "koken", datum: "03-01-2027" },
+            { id: 3, titel: "Brood bakken", prijs: 39.5, plekken: 3, categorie: "koken", datum: "05-2-2027" }
+        ];
+
+        
+
+        function formatPrijs(prijs) {
+            return `€ ${prijs.toFixed(2).replace(".", ",")}`;
+        }
+
+        let body = document.querySelector('body');
+
+        body.innerHTML = maakCard(workshops[0]);
+    </script>
+</body>
+
+</html>

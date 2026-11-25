@@ -2,60 +2,93 @@
 
 //DRY: DONT REPEAT YOURSELF
 function formatPrijs(prijs) {
-    return `€ ${prijs.toFixed(2).replace(".", ",")}`;
+  return `€ ${prijs.toFixed(2).replace(".", ",")}`;
 }
 
-function kiesWorkshop(workshopId, workshopTitle, workshopDate, workshopPrijs){
-    document.querySelector("#workshop").value = workshopId;
-    document.querySelector("#gekozen").textContent = `Jouw keuze: ${workshopTitle} op ${workshopDate}. De prijs is ${formatPrijs(workshopPrijs)}`;
+const binnenkort = [
+  "Dim sum maken",
+  "Franse patisserie",
+  "Mexicaanse streetfood",
+  "Pizza's bakken",
+];
+
+//loop door de array binnenkort om zo een lijst te maken met de binnen-kort-workshops
+binnenkort.forEach(function (titel) {
+  const li = document.createElement("li");
+  li.textContent = titel;
+  document.querySelector("#binnenkort").appendChild(li);
+  li.classList.add("binnenkort-item");
+});
+
+//de huidige workshops in een array
+const currentWorkshops = [
+  "Verse pasta maken",
+  "Sushi voor beginners",
+  "Brood bakken",
+  "Vegetarisch kerstdiner",
+  "Thaise curry's",
+  "Taarten en gebak",
+  "Vegan borrelhapjes",
+];
+
+//loop door de huidige workshops en toon ze in een dropdown in het formulier
+currentWorkshops.forEach(function (titel, index) {
+  const option = document.createElement("option");
+  option.textContent = titel;
+  option.value = index + 1;
+  document.querySelector("#workshop").appendChild(option);
+});
+
+//schrijf de gekozen workshop naar het scherm in een Nederlandse zin.
+function kiesWorkshop(workshop) {
+  document.querySelector("#workshop").value = workshop.id;
+  document.querySelector("#gekozen").textContent =
+    `Je hebt gekozen: ${workshop.titel} op ${workshop.datum} (${formatPrijs(workshop.prijs)} p.p.).`;
 }
 
-const knoppen = document.querySelectorAll(".card a");
+//functie om een kaart te maken. Dynamisch en afhankelij van het object workshop
+function maakCard(workshop) {
+  let plekkenTekst = `Nog ${workshop.plekken} plekken`;
+  if (workshop.plekken === 0) {
+    plekkenTekst = "Vol!";
+  }
 
-knoppen[0].addEventListener("click", function () {
-    kiesWorkshop(1, "Verse pasta maken", "zaterdag 5 december", 45);
-});
-
-knoppen[1].addEventListener("click", function () {
-    kiesWorkshop(2, "Sushi voor beginners", "zaterdag 12 december", 55);
-});
-
-knoppen[2].addEventListener("click", function () {
-    kiesWorkshop(3, "Brood bakken", "zaterdag 19 december", 39.5);
-});
-
-knoppen[3].addEventListener("click", function () {
-    kiesWorkshop(4, "Vegetarisch kerstdiner", "zondag 20 december", 65);
-});
-knoppen[4].addEventListener("click", function () {
-    kiesWorkshop(5, "Thaise curry's", "zaterdag 9 januari", 49);
-});
-knoppen[5].addEventListener("click", function () {
-    kiesWorkshop(6, "Taarten en gebak", "zaterdag 16 januari", 42.5);
-});
-
-function berekenTotaal(prijs, aantal){
-    let totaal = prijs * aantal;
-    return formatPrijs(totaal);
+  return `
+                <article class="card">
+                    <h3>${workshop.titel}</h3>
+                    <p class="categorie">${workshop.categorie}</p>
+                    <p>${workshop.datum}</p>
+                    <p class="prijs">${formatPrijs(workshop.prijs)}</p>
+                    <p>${plekkenTekst}</p>
+                    <a href="#inschrijven" class="knop">Schrijf je in</a>
+                </article>
+            `;
 }
 
+//Toon de huidige workshops als card op het scherm en maak van elke knop een klikbare link
+function toonWorkshops(lijst) {
+  const container = document.querySelector(".cards");
+  container.innerHTML = "";
 
-// Zet de prijs in het verborgen veld zodra er een workshop gekozen is
+  lijst.forEach(function (workshop) {
+    container.innerHTML += maakCard(workshop);
+  });
 
-document.querySelector("#workshop").addEventListener("change", function () {
-    let keuze = document.querySelector("#workshop").value;
+  // Pas NA het maken van alle cards de knoppen koppelen
+  container.querySelectorAll(".card a").forEach(function (knop, index) {
+    knop.addEventListener("click", function () {
+      kiesWorkshop(lijst[index]);
+    });
+  });
+}
 
-    if (keuze == "1") {
-        document.querySelector("#prijs").value = 45;
-    } else if (keuze == "2") {
-        document.querySelector("#prijs").value = 55;
-    } else if (keuze == "3") {
-        document.querySelector("#prijs").value = 39.5;
-    } else if (keuze == "4") {
-        document.querySelector("#prijs").value = 65;
-    } else if (keuze == "5") {
-        document.querySelector("#prijs").value = 49;
-    } else if (keuze == "6") {
-        document.querySelector("#prijs").value = 42.5;
-    }
-});
+let workshops = [];
+
+//haal alle workshops op vanuit de data/workshops.json file
+async function laadWorkshops() {
+  const response = await fetch("data/workshops.json");
+  workshops = await response.json();
+  toonWorkshops(workshops);
+}
+
+laadWorkshops();
