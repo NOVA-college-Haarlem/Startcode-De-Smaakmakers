@@ -17,6 +17,7 @@
                 <a href="#contact">Contact</a>
                 <a href="workshops_create.php">Workshops toevoegen</a>
                 <a href="workshops_overzicht.php">Overzicht workshops</a>
+                <a href="registreren.php">Registreren</a>
             </nav>
     </div>
 </header>
