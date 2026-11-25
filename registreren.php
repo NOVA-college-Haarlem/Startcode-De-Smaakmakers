@@ -7,16 +7,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     //url parameters uitlezen dan $_GET
 
+    $fouten = [];
     $voornaam = '';
     $achternaam = '';
     $email = '';
+    $password = '';
 
-    if(!empty($_POST['voornaam'])){
-        $voornaam = trim($_POST['voornaam']); //Geranimo
+    if(empty($_POST['voornaam'])){
+         $fouten['voornaam'] = 'Je voornaam moet ingevuld worden';
     }
-    if(!empty($_POST['achternaam'])){
-        $achternaam = trim($_POST['achternaam']); //Koning
+    
+
+    if(empty($_POST['achternaam'])){
+        $fouten['achternaam'] = 'Je achternaam moet ingevuld worden';
     }
+
+    if(empty($_POST['email'])){
+        $fouten['email'] = 'Je email moet ingevuld worden';
+    }
+    
 
     if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
         $email = trim($_POST['email']);
@@ -26,6 +35,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $fouten['email'] = 'Er bestaat al gebruiker met dit emailadres';
         }
     }
+
+    if(empty($_POST['wachtwoord']) || strlen($_POST['wachtwoord'] < 12)){
+        $fouten['wachtwoord'] =  'Het wachtwoord mag niet leeg zijn en minimaal 12 karakters';
+        
+    }
+
+    if($_POST['wachtwoord'] != $_POST['wachtwoord_herlaal']){
+        $fouten['wachtwoord_ongelijk'] = "De wachtwoorden komen niet overeen met elkaar"; 
+    }
+
+    if(count($fouten) === 0){
+        $voornaam = trim($_POST['voornaam']); //Geranimo
+        $achternaam = trim($_POST['achternaam']); //Koning
+        $hash = password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT);
+        
+        mysqli_execute_query(
+            $conn,
+            "INSERT INTO gebruikers (voornaam, achternaam, email, wachtwoord) VALUES (?, ?, ?, ?)",
+            [$voornaam, $achternaam, $email, $hash]
+            );
+            
+    }
+
+
 
 
 
