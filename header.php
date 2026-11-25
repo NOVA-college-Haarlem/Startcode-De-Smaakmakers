@@ -10,7 +10,7 @@
 
 <header>
     <div class="container header-inner">
-        <div class="logo">De Smaakmakers</div>
+        <a href="/"><div class="logo">De Smaakmakers</div></a>
          <nav>
                 <a href="#workshops">Workshops</a>
                 <a href="#inschrijven">Inschrijven</a>
