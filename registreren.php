@@ -36,12 +36,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
     }
 
-    if(empty($_POST['wachtwoord']) || strlen($_POST['wachtwoord'] < 12)){
+    if(empty($_POST['wachtwoord']) || strlen($_POST['wachtwoord']) < 12){
         $fouten['wachtwoord'] =  'Het wachtwoord mag niet leeg zijn en minimaal 12 karakters';
         
     }
 
-    if($_POST['wachtwoord'] != $_POST['wachtwoord_herlaal']){
+    if($_POST['wachtwoord'] != $_POST['wachtwoord_herhaal']){
         $fouten['wachtwoord_ongelijk'] = "De wachtwoorden komen niet overeen met elkaar"; 
     }
 
@@ -55,6 +55,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             "INSERT INTO gebruikers (voornaam, achternaam, email, wachtwoord) VALUES (?, ?, ?, ?)",
             [$voornaam, $achternaam, $email, $hash]
             );
+
+        header('Location: registreren.php?gelukt=1');
+        exit;
             
     }
 
@@ -70,7 +73,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 $paginatitel = 'Nieuwe workshop';
 require 'header.php';
+
+
 ?>
+<?php if (isset($_GET['gelukt'])): ?>
+    <p>Je account is aangemaakt!</p>
+<?php endif; ?>
+
+<ul>
+    <?php 
+if(isset($fouten) && count($fouten) > 0){
+    foreach($fouten as $fout){
+        echo '<li>'. $fout . '</li>';
+    }
+}
+    ?>
+</ul>
 
 <h1>Registreren</h1>
 

@@ -11,10 +11,13 @@
 <header>
     <div class="container header-inner">
         <div class="logo">De Smaakmakers</div>
-        <nav>
-            <a href="index.html">Website</a>
-            <a href="workshops_overzicht.php">Workshops beheren</a>
-        </nav>
+         <nav>
+                <a href="#workshops">Workshops</a>
+                <a href="#inschrijven">Inschrijven</a>
+                <a href="#contact">Contact</a>
+                <a href="workshops_create.php">Workshops toevoegen</a>
+                <a href="workshops_overzicht.php">Overzicht workshops</a>
+            </nav>
     </div>
 </header>
 
