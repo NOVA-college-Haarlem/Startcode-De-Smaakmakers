@@ -8,10 +8,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     //url parameters uitlezen dan $_GET
 
     $voornaam = '';
+    $achternaam = '';
+    $email = '';
 
     if(!empty($_POST['voornaam'])){
         $voornaam = trim($_POST['voornaam']); //Geranimo
     }
+    if(!empty($_POST['achternaam'])){
+        $achternaam = trim($_POST['achternaam']); //Koning
+    }
+
+    if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+        $email = trim($_POST['email']);
+        
+        $result = mysqli_execute_query($conn, "SELECT email FROM gebruikers WHERE email = ?", [$email]);
+        if (mysqli_num_rows($result) > 0) {
+            $fouten['email'] = 'Er bestaat al gebruiker met dit emailadres';
+        }
+    }
+
+
+
+
 
 
 
